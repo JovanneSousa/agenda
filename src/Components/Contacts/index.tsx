@@ -1,11 +1,12 @@
 import type { RootReducer } from '../../Store'
-import { ContactContainer } from './styles'
+import { ButtonDiv, ContactContainer } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { MdOutlineEdit } from 'react-icons/md'
 import { FaCheck, FaTrashAlt } from 'react-icons/fa'
 import { useState } from 'react'
 import type Contact from '../../models/Contact'
 import { edit, remove } from '../../Store/reducers/contact'
+import { cores } from '../../globalStyle'
 
 const Contacts = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const Contacts = () => {
 
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { contacts } = useSelector((state: RootReducer) => state.contact)
-  const { termo } = useSelector((state: RootReducer) => state.filtro)
+  const { termo } = useSelector((state: RootReducer) => state.filter)
 
   type GroupedContacts = {
     [initial: string]: Contact[]
@@ -55,60 +56,65 @@ const Contacts = () => {
               {grouped[initial].map((contact) => (
                 <li key={contact.id}>
                   <input
+                    className={isEditing === contact.id ? 'is-editing' : ''}
                     onChange={(e) => setName(e.target.value)}
                     type="text"
                     disabled={isEditing !== contact.id}
                     value={isEditing === contact.id ? name : contact.fullName}
-                  />{' '}
-                  -{' '}
+                  />
                   <input
+                    className={isEditing === contact.id ? 'is-editing' : ''}
                     onChange={(e) => setEmail(e.target.value)}
                     type="text"
                     disabled={isEditing !== contact.id}
                     value={isEditing === contact.id ? email : contact.email}
                   />
-                  -
+
                   <input
+                    className={isEditing === contact.id ? 'is-editing' : ''}
                     onChange={(e) => setNumber(Number(e.target.value))}
                     type="number"
                     disabled={isEditing !== contact.id}
                     value={isEditing === contact.id ? number : contact.number}
                   />
-                  {isEditing !== contact.id ? (
+                  <ButtonDiv>
+                    {isEditing !== contact.id ? (
+                      <button
+                        onClick={() => {
+                          setIsEditing(contact.id)
+                          setName(contact.fullName)
+                          setEmail(contact.email)
+                          setNumber(contact.number)
+                        }}
+                      >
+                        <MdOutlineEdit />
+                      </button>
+                    ) : (
+                      <button
+                        className={isEditing !== null ? 'isActive' : ''}
+                        onClick={() => {
+                          dispatch(
+                            edit({
+                              email,
+                              number,
+                              fullName: name,
+                              id: contact.id,
+                            })
+                          )
+                          setIsEditing(null)
+                        }}
+                      >
+                        <FaCheck color={cores.buttonColor} />
+                      </button>
+                    )}
                     <button
                       onClick={() => {
-                        setIsEditing(contact.id)
-                        setName(contact.fullName)
-                        setEmail(contact.email)
-                        setNumber(contact.number)
+                        dispatch(remove(contact.id))
                       }}
                     >
-                      <MdOutlineEdit />
+                      <FaTrashAlt color={cores.buttonColor} />
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        dispatch(
-                          edit({
-                            email,
-                            number,
-                            fullName: name,
-                            id: contact.id,
-                          })
-                        )
-                        setIsEditing(null)
-                      }}
-                    >
-                      <FaCheck />
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      dispatch(remove(contact.id))
-                    }}
-                  >
-                    <FaTrashAlt />
-                  </button>
+                  </ButtonDiv>
                 </li>
               ))}
             </ul>

@@ -1,7 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const cores = {
-  lightGray: 'lightgray',
+  container: '#1e1e1e',
+  sidebar: '#181818',
+  background: '#121212',
+  titleColor: '#e0e0e0',
+  textColor: '#b0b0b0',
+  buttonColor: '#4fc3f7',
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -12,9 +17,10 @@ export const GlobalStyle = createGlobalStyle`
     font-family: roboto, sans-serif;
     list-style: none;
     text-decoration: none;
+    color: ${cores.titleColor};
 
     body {
-        background-color: darkblue;
+        background-color: ${cores.background};
     }
 }
 

@@ -5,7 +5,7 @@ import { alteraTermo } from '../../Store/reducers/filtro'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
-  const { termo } = useSelector((state: RootReducer) => state.filtro)
+  const { termo } = useSelector((state: RootReducer) => state.filter)
 
   return (
     <SearchBarSection>

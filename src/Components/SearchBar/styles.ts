@@ -8,7 +8,8 @@ export const SearchBarSection = styled.div`
   input {
     height: 32px;
     padding: 0 8px;
-    border: 1px solid ${cores.lightGray};
+    border: 1px solid ${cores.container};
     width: 100%;
+    background-color: ${cores.sidebar};
   }
 `
