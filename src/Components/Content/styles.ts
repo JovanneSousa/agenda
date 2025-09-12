@@ -8,6 +8,7 @@ export const ContainerSection = styled.div`
   max-height: 85vw;
   overflow-y: scroll;
   scrollbar-width: none;
+  position: relative;
 
   input {
     height: 32px;

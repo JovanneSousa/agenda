@@ -1,12 +1,22 @@
+import AddButton from '../addButton'
 import Contacts from '../Contacts'
 import SearchBar from '../SearchBar'
 import { ContainerSection } from './styles'
 
-const Container = () => {
+interface ContainerProps {
+  onClick: () => void
+  isAddButtonActive: boolean
+}
+
+const Container: React.FC<ContainerProps> = ({
+  onClick,
+  isAddButtonActive,
+}) => {
   return (
     <ContainerSection>
       <SearchBar />
       <Contacts />
+      {!isAddButtonActive && <AddButton onClick={onClick} />}
     </ContainerSection>
   )
 }

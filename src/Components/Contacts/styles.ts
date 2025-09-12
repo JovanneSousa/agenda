@@ -39,6 +39,7 @@ export const ButtonDiv = styled.div`
     width: 32px;
     border-radius: 8px;
     border: 1px solid ${cores.buttonColor};
+    cursor: pointer;
   }
 
   .isActive,
