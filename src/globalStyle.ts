@@ -10,6 +10,8 @@ export const cores = {
   buttonColorGradient: '#4fc3f733',
   gradient: 'linear-gradient(135deg, #0d47a1, #0288d1)',
   gradient2: 'linear-gradient(135deg, #0288d1, #4fc3f7)',
+  white: '#fff',
+  darkgray: '#a9a9a9',
 }
 
 export const GlobalStyle = createGlobalStyle`

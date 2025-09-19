@@ -16,7 +16,9 @@ const Container: React.FC<ContainerProps> = ({
     <ContainerSection>
       <SearchBar />
       <Contacts />
-      {!isAddButtonActive && <AddButton onClick={onClick} />}
+      {!isAddButtonActive && (
+        <AddButton type="button" children="+" add onClick={onClick} />
+      )}
     </ContainerSection>
   )
 }
