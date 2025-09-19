@@ -9,6 +9,7 @@ export const ContainerSection = styled.div`
   overflow-y: scroll;
   scrollbar-width: none;
   position: relative;
+  padding: 16px;
 
   input {
     height: 32px;
