@@ -11,13 +11,13 @@ export default function ContactsPage() {
   }
 
   return (
-    <>
+    <div className="relative">
       <Perfil />
       <Container
         isAddButtonActive={isAddButtonActive}
         onClick={handleAddButtonClick}
       />
       {isAddButtonActive && <AddContact onClose={handleAddButtonClick} />}
-    </>
+    </div>
   )
 }

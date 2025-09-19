@@ -14,6 +14,11 @@ export const cores = {
   darkgray: '#a9a9a9',
 }
 
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px',
+}
+
 export const GlobalStyle = createGlobalStyle`
 * {
     box-sizing: border-box;
@@ -35,5 +40,13 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
+}
+
+.relative {
+    display: flex;
+
+    @media (max-width: ${breakpoints.tablet}) {
+        position: relative;
+    }
 }
 `

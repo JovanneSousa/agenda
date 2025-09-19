@@ -5,11 +5,11 @@ export const ContainerSection = styled.div`
   background-color: ${cores.container};
   width: 100%;
   padding: 32px 8px;
-  max-height: 85vw;
   overflow-y: scroll;
   scrollbar-width: none;
   position: relative;
   padding: 16px;
+  height: 100vh;
 
   input {
     height: 32px;

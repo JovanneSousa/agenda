@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../globalStyle'
+import { breakpoints, cores } from '../../globalStyle'
 
 export const StyleButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== 'add',
@@ -7,7 +7,7 @@ export const StyleButton = styled.button.withConfig({
   ${(props) =>
     props.add
       ? `
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     width: 56px;
@@ -28,7 +28,7 @@ export const StyleButton = styled.button.withConfig({
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: 0;
   border: none;
   transition:
     transform 0.3s ease,

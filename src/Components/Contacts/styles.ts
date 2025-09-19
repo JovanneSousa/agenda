@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../globalStyle'
+import { breakpoints, cores } from '../../globalStyle'
 
 export const ContactContainer = styled.div`
   display: flex;
@@ -24,6 +24,10 @@ export const ContactContainer = styled.div`
     border-radius: 8px;
     transition: transform 0.3s ease;
 
+    @media (max-width: ${breakpoints.tablet}) {
+      display: block;
+    }
+
     &:hover {
       box-shadow: 0 0 10px 5px ${cores.buttonColorGradient};
       transform: scale(1.01);
@@ -34,10 +38,17 @@ export const ContactContainer = styled.div`
     background-color: ${cores.container};
     border: 1px solid ${cores.buttonColor};
   }
+
+  input {
+    @media (max-width: ${breakpoints.tablet}) {
+      margin: 4px;
+    }
+  }
 `
 
 export const ButtonDiv = styled.div`
   display: flex;
+  justify-content: end;
 
   button {
     margin-right: 8px;
@@ -56,5 +67,11 @@ export const ButtonDiv = styled.div`
     box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.1);
     transform: scale(1.2);
     background-color: ${cores.buttonColor};
+  }
+
+  button {
+    @media (max-width: ${breakpoints.tablet}) {
+      padding: 8px;
+    }
   }
 `

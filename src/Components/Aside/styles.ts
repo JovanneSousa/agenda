@@ -1,7 +1,11 @@
 import styled from 'styled-components'
-import { cores } from '../../globalStyle'
+import { breakpoints, cores } from '../../globalStyle'
 
-export const PerfilSection = styled.aside`
+export interface AsideProps {
+  open: boolean
+}
+
+export const PerfilSection = styled.aside<AsideProps>`
   max-width: 280px;
   width: 100%;
   background-color: ${cores.sidebar};
@@ -20,6 +24,14 @@ export const PerfilSection = styled.aside`
     li {
       margin: 8px;
     }
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+    transition: transform 0.3s ease-in-out;
+    width: 80vw;
+    position: absolute;
+    z-index: 2;
   }
 `
 
