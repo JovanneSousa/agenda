@@ -17,6 +17,7 @@ export const cores = {
 export const breakpoints = {
   desktop: '1024px',
   tablet: '768px',
+  containerMaxWidth: '1200px',
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -37,14 +38,14 @@ export const GlobalStyle = createGlobalStyle`
 
 
 .container {
-    max-width: 1200px;
+    max-width: ${breakpoints.containerMaxWidth};
     margin: 0 auto;
     display: flex;
 }
 
 .relative {
     display: flex;
-
+    width: ${breakpoints.containerMaxWidth};
     @media (max-width: ${breakpoints.tablet}) {
         position: relative;
     }

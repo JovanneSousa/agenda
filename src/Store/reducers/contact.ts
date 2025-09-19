@@ -37,6 +37,66 @@ const initialState: ContactState = {
       fullName: 'Eduarda Costa',
       number: 11999887766,
     },
+    {
+      id: 6,
+      email: 'contato1@email.com',
+      fullName: 'Ana Silva',
+      number: 11987654321,
+    },
+    {
+      id: 7,
+      email: 'contato2@email.com',
+      fullName: 'Bruno Oliveira',
+      number: 11991234567,
+    },
+    {
+      id: 8,
+      email: 'contato3@email.com',
+      fullName: 'Carla Souza',
+      number: 21998765432,
+    },
+    {
+      id: 9,
+      email: 'contato4@email.com',
+      fullName: 'Daniel Lima',
+      number: 31992345678,
+    },
+    {
+      id: 10,
+      email: 'contato5@email.com',
+      fullName: 'Eduarda Costa',
+      number: 11999887766,
+    },
+    {
+      id: 11,
+      email: 'contato1@email.com',
+      fullName: 'Ana Silva',
+      number: 11987654321,
+    },
+    {
+      id: 12,
+      email: 'contato2@email.com',
+      fullName: 'Bruno Oliveira',
+      number: 11991234567,
+    },
+    {
+      id: 13,
+      email: 'contato3@email.com',
+      fullName: 'Carla Souza',
+      number: 21998765432,
+    },
+    {
+      id: 14,
+      email: 'contato4@email.com',
+      fullName: 'Daniel Lima',
+      number: 31992345678,
+    },
+    {
+      id: 15,
+      email: 'contato5@email.com',
+      fullName: 'Eduarda Costa',
+      number: 11999887766,
+    },
   ],
 }
 
