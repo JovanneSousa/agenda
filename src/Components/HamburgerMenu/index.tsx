@@ -1,7 +1,7 @@
 import { HamburgerIcon, Overlay } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
-import type { RootReducer } from '../Store'
-import { toggleSidebar } from '../Store/reducers/sidebar'
+import type { RootReducer } from '../../Store'
+import { toggleSidebar } from '../../Store/reducers/sidebar'
 
 const HamburgerMenu = () => {
   const dispatch = useDispatch()

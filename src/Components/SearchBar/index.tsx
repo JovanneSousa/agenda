@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootReducer } from '../../Store'
 import { alteraTermo } from '../../Store/reducers/filtro'
 import { SearchBarSection } from './styles'
-import HamburgerMenu from '../../HamburgerMenu'
+import HamburgerMenu from '../HamburgerMenu'
 
 const SearchBar = () => {
   const dispatch = useDispatch()

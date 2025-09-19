@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../globalStyle'
+import { breakpoints, cores } from '../../globalStyle'
 
 interface HamburgerProps {
   open: boolean

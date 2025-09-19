@@ -47,10 +47,10 @@ export const StyleButton = styled.button.withConfig({
   @media (max-width: ${breakpoints.tablet}) {
     right: 20px;
     left: auto;
-    transform: scale(1); 
+    transform: scale(1);
 
     &:hover {
-      transform: scale(1.03); /
+      transform: scale(1.03);
     }
   }
 `
