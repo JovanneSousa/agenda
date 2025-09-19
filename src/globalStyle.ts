@@ -7,6 +7,8 @@ export const cores = {
   titleColor: '#e0e0e0',
   textColor: '#b0b0b0',
   buttonColor: '#4fc3f7',
+  gradient: 'linear-gradient(135deg, #0d47a1, #0288d1)',
+  gradient2: 'linear-gradient(135deg, #0288d1, #4fc3f7)',
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -20,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${cores.titleColor};
 
     body {
-        background-color: ${cores.background};
+        background: ${cores.gradient};
     }
 }
 

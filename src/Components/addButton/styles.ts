@@ -10,7 +10,7 @@ export const StyleButton = styled.div<{ onClick: () => void }>`
   bottom: 20px;
   right: 20px;
   font-size: 48px;
-  background-color: ${cores.buttonColor};
+  background: ${cores.gradient2};
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -23,9 +23,7 @@ export const StyleButton = styled.div<{ onClick: () => void }>`
     background-color 0.3s ease;
 
   &:hover {
-    background-color: ${cores.container};
-    border: 1px solid ${cores.buttonColor};
-    color: ${cores.buttonColor};
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.1);
     transform: scale(1.2);
   }
 `

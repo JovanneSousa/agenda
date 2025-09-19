@@ -1,29 +1,22 @@
 import { Provider } from 'react-redux'
-import Perfil from './Components/Aside'
-import Container from './Components/Content'
 import { GlobalStyle } from './globalStyle'
 import { store } from './Store'
-import AddContact from './Components/addContactModal'
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ContactsPage from './Pages/ContactPage'
+import LoginPage from './Pages/LoginPage'
 
 function App() {
-  const [isAddButtonActive, setIsAddbuttonActive] = useState(false)
-
-  const handleAddButtonClick = () => {
-    setIsAddbuttonActive(!isAddButtonActive)
-  }
-
   return (
     <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Perfil />
-        <Container
-          isAddButtonActive={isAddButtonActive}
-          onClick={handleAddButtonClick}
-        />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/contatos" element={<ContactsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </BrowserRouter>
       </div>
-      {isAddButtonActive && <AddContact onClose={handleAddButtonClick} />}
     </Provider>
   )
 }
