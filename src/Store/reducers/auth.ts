@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/auth'
+const API_URL = 'https://agenda-api-production-76af.up.railway.app/auth'
 
 interface LoginResponse {
   username: string
