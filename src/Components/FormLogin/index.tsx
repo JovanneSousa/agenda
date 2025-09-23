@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const FormLogin = () => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
-  const { error, loading } = useSelector((state: RootReducer) => state.auth)
+  const { error } = useSelector((state: RootReducer) => state.auth)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 

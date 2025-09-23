@@ -6,7 +6,7 @@ import { register } from '../../Store/reducers/auth'
 
 const FormRegister = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { error, loading } = useSelector((state: RootReducer) => state.auth)
+  const { error } = useSelector((state: RootReducer) => state.auth)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
