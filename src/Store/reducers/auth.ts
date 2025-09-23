@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const API_URL = 'https://agenda-api-production-76af.up.railway.app/auth'
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface LoginResponse {
   username: string
