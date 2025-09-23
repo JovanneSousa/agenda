@@ -37,7 +37,6 @@ const FormRegister = () => {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        name="name"
         id="name"
         placeholder="Nome"
       />
@@ -45,7 +44,6 @@ const FormRegister = () => {
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        name="user"
         id="user"
         placeholder="Usuário"
       />
@@ -53,7 +51,6 @@ const FormRegister = () => {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        name="email"
         id="email"
         placeholder="Email"
       />
@@ -61,7 +58,6 @@ const FormRegister = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         type="password"
-        name="password"
         id="password"
         placeholder="Senha"
         autoComplete="current-password"
@@ -69,7 +65,6 @@ const FormRegister = () => {
       <input
         type="password"
         value={confirmPassword}
-        name="confirm-password"
         id="confirm-password"
         placeholder="Confirme a senha"
         autoComplete="current-password"

@@ -35,7 +35,6 @@ const FormLogin = () => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        name="user"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         id="user"
@@ -44,7 +43,6 @@ const FormLogin = () => {
       />
       <input
         type="password"
-        name="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         id="password"
