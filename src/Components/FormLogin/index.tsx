@@ -17,8 +17,9 @@ const FormLogin = () => {
     e.preventDefault()
 
     try {
-      await dispatch(login({ username, password })).unwrap()
+      const result = await dispatch(login({ username, password })).unwrap()
 
+      localStorage.setItem('token', result.token)
       clearInput()
       navigate('/contacts')
     } catch (err) {
