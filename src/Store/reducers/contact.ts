@@ -1,107 +1,45 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from '@reduxjs/toolkit'
 import Contact from '../../models/Contact'
+import axios from 'axios'
 
 type ContactState = {
   contacts: Contact[]
+  loading: boolean
+  error: string | null
 }
 
 const initialState: ContactState = {
-  contacts: [
-    {
-      id: 1,
-      email: 'contato1@email.com',
-      fullName: 'Ana Silva',
-      number: 11987654321,
-    },
-    {
-      id: 2,
-      email: 'contato2@email.com',
-      fullName: 'Bruno Oliveira',
-      number: 11991234567,
-    },
-    {
-      id: 3,
-      email: 'contato3@email.com',
-      fullName: 'Carla Souza',
-      number: 21998765432,
-    },
-    {
-      id: 4,
-      email: 'contato4@email.com',
-      fullName: 'Daniel Lima',
-      number: 31992345678,
-    },
-    {
-      id: 5,
-      email: 'contato5@email.com',
-      fullName: 'Eduarda Costa',
-      number: 11999887766,
-    },
-    {
-      id: 6,
-      email: 'contato1@email.com',
-      fullName: 'Ana Silva',
-      number: 11987654321,
-    },
-    {
-      id: 7,
-      email: 'contato2@email.com',
-      fullName: 'Bruno Oliveira',
-      number: 11991234567,
-    },
-    {
-      id: 8,
-      email: 'contato3@email.com',
-      fullName: 'Carla Souza',
-      number: 21998765432,
-    },
-    {
-      id: 9,
-      email: 'contato4@email.com',
-      fullName: 'Daniel Lima',
-      number: 31992345678,
-    },
-    {
-      id: 10,
-      email: 'contato5@email.com',
-      fullName: 'Eduarda Costa',
-      number: 11999887766,
-    },
-    {
-      id: 11,
-      email: 'contato1@email.com',
-      fullName: 'Ana Silva',
-      number: 11987654321,
-    },
-    {
-      id: 12,
-      email: 'contato2@email.com',
-      fullName: 'Bruno Oliveira',
-      number: 11991234567,
-    },
-    {
-      id: 13,
-      email: 'contato3@email.com',
-      fullName: 'Carla Souza',
-      number: 21998765432,
-    },
-    {
-      id: 14,
-      email: 'contato4@email.com',
-      fullName: 'Daniel Lima',
-      number: 31992345678,
-    },
-    {
-      id: 15,
-      email: 'contato5@email.com',
-      fullName: 'Eduarda Costa',
-      number: 11999887766,
-    },
-  ],
+  contacts: [],
+  loading: false,
+  error: null,
 }
 
+export const fetchUserContacts = createAsyncThunk<
+  Contact[],
+  void,
+  { rejectValue: string }
+>('contacts/fetchUserContacs', async (_, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.get<Contact[]>('/contacts', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (err: any) {
+    return rejectWithValue(
+      err.response?.data?.message || 'Erro ao carregar contatos'
+    )
+  }
+})
+
 const contactSlice = createSlice({
-  name: 'contact',
+  name: 'contacts',
   initialState,
   reducers: {
     add: (state, action: PayloadAction<Omit<Contact, 'id'>>) => {
@@ -133,10 +71,23 @@ const contactSlice = createSlice({
       }
     },
     remove: (state, action: PayloadAction<number>) => {
-      state.contacts = [
-        ...state.contacts.filter((c) => c.id !== action.payload),
-      ]
+      state.contacts = state.contacts.filter((c) => c.id !== action.payload)
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserContacts.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchUserContacts.fulfilled, (state, action) => {
+        state.loading = false
+        state.contacts = action.payload
+      })
+      .addCase(fetchUserContacts.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Erro desconhecido'
+      })
   },
 })
 

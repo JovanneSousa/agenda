@@ -1,15 +1,15 @@
-import type { RootReducer } from '../../Store'
+import type { AppDispatch, RootReducer } from '../../Store'
 import { ButtonDiv, ContactContainer } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { MdOutlineEdit } from 'react-icons/md'
 import { FaCheck, FaTrashAlt } from 'react-icons/fa'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type Contact from '../../models/Contact'
-import { edit, remove } from '../../Store/reducers/contact'
+import { edit, fetchUserContacts, remove } from '../../Store/reducers/contact'
 import { cores } from '../../globalStyle'
 
 const Contacts = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [number, setNumber] = useState(0)
@@ -18,13 +18,19 @@ const Contacts = () => {
   const { contacts } = useSelector((state: RootReducer) => state.contact)
   const { termo } = useSelector((state: RootReducer) => state.filter)
 
+  useEffect(() => {
+    dispatch(fetchUserContacts())
+  }, [dispatch])
+
   type GroupedContacts = {
     [initial: string]: Contact[]
   }
 
-  const groupContactsByInitial = (contacts: Contact[]): GroupedContacts => {
+  const groupContactsByInitial = (
+    contacts: Contact[] = []
+  ): GroupedContacts => {
     return contacts.reduce((acc, contact) => {
-      const initial = contact.fullName[0].toUpperCase()
+      const initial = contact.fullName?.[0]?.toUpperCase() || '#'
       if (!acc[initial]) {
         acc[initial] = []
       }
@@ -34,7 +40,7 @@ const Contacts = () => {
   }
 
   const contactFilter = () => {
-    let contactFiltred = contacts
+    let contactFiltred = contacts || []
     if (termo !== undefined && termo.trim() !== '') {
       contactFiltred = contactFiltred.filter((c) =>
         c.fullName.toLowerCase().includes(termo.toLowerCase())
