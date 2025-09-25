@@ -4,7 +4,7 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit'
 import Contact from '../../models/Contact'
-import axios from 'axios'
+import api from '../../services/api'
 
 type ContactState = {
   contacts: Contact[]
@@ -25,11 +25,14 @@ export const fetchUserContacts = createAsyncThunk<
 >('contacts/fetchUserContacs', async (_, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.get<Contact[]>('/contacts', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const response = await api.get<Contact[]>(
+      '/contacts',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     return response.data
   } catch (err: any) {
     return rejectWithValue(
@@ -39,7 +42,7 @@ export const fetchUserContacts = createAsyncThunk<
 })
 
 const contactSlice = createSlice({
-  name: 'contacts',
+  name: 'contact',
   initialState,
   reducers: {
     add: (state, action: PayloadAction<Omit<Contact, 'id'>>) => {

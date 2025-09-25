@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { breakpoints, cores } from '../../globalStyle'
 
+export const NoContactFound = styled.div`
+  text-align: center;
+  color: ${cores.textColor};
+`
+
 export const ContactContainer = styled.div`
   display: flex;
 

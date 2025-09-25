@@ -20,6 +20,7 @@ const FormLogin = () => {
       const result = await dispatch(login({ username, password })).unwrap()
 
       localStorage.setItem('token', result.token)
+      localStorage.setItem('name', result.name)
       clearInput()
       navigate('/contacts')
     } catch (err) {

@@ -1,5 +1,5 @@
 import type { AppDispatch, RootReducer } from '../../Store'
-import { ButtonDiv, ContactContainer } from './styles'
+import { ButtonDiv, ContactContainer, NoContactFound } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { MdOutlineEdit } from 'react-icons/md'
 import { FaCheck, FaTrashAlt } from 'react-icons/fa'
@@ -51,7 +51,9 @@ const Contacts = () => {
 
   const grouped = contactFilter()
 
-  return (
+  return Object.keys(grouped).length === 0 ? (
+    <NoContactFound>Nenhum contato encotrado</NoContactFound>
+  ) : (
     <div>
       {Object.keys(grouped)
         .sort()

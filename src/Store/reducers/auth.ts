@@ -3,12 +3,11 @@ import {
   createSlice,
   type PayloadAction,
 } from '@reduxjs/toolkit'
-import axios from 'axios'
-
-const API_URL = import.meta.env.VITE_BACKEND_URL
+import api from '../../services/api'
 
 interface LoginResponse {
   username: string
+  name: string
   token: string
 }
 
@@ -36,10 +35,7 @@ export const login = createAsyncThunk<
   { username: string; password: string }
 >('auth/login', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await axios.post<LoginResponse>(
-      `${API_URL}/login`,
-      credentials
-    )
+    const response = await api.post<LoginResponse>(`/auth/login`, credentials)
     return response.data
   } catch (error: any) {
     return rejectWithValue(error.response?.data || 'Erro no login')
@@ -51,8 +47,8 @@ export const register = createAsyncThunk<
   { username: string; name: string; email: string; password: string }
 >('auth/register', async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post<RegisterResponse>(
-      `${API_URL}/register`,
+    const response = await api.post<RegisterResponse>(
+      `/auth/register`,
       userData
     )
     return response.data
