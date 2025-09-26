@@ -40,7 +40,7 @@ const Contacts = () => {
   const contactFilter = () => {
     let contactFiltred = contacts || []
     if (termo?.trim() !== '') {
-      contactFiltred = contactFiltred.filter((c) => {
+      contactFiltred = contactFiltred.filter(() => {
         const searchTerm = termo?.trim() || ''
         if (searchTerm !== '') {
           contactFiltred = contactFiltred.filter((c) =>
