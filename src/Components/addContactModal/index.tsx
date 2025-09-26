@@ -2,7 +2,7 @@ import { FaCheck } from 'react-icons/fa'
 import { Container, Add } from './styles'
 import { cores } from '../../globalStyle'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { addContact } from '../../Store/reducers/contact'
 import type { AppDispatch } from '../../Store'
 
@@ -11,9 +11,15 @@ interface AddContactProps {
 }
 const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>()
+  const [isVisible, setIsVisible] = useState(false)
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsVisible(!isVisible), 10)
+    return () => clearTimeout(timeout)
+  }, [])
 
   const limpaFormulario = () => {
     setEmail('')
@@ -32,31 +38,37 @@ const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
 
   return (
     <>
-      <Container onClick={onClose}></Container>
-      <Add>
+      <Container
+        onClick={onClose}
+        className={isVisible ? 'visible' : ''}
+      ></Container>
+      <Add className={isVisible ? 'visible' : ''}>
         <h2>Adicionar Novo Contato</h2>
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="input-container">
             <label htmlFor="name">Nome:</label>
             <input
+              required
               onChange={(e) => setName(e.target.value)}
               value={name}
               id="name"
               type="text"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label htmlFor="email">Email:</label>
             <input
+              required
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               id="email"
               type="email"
             />
           </div>
-          <div>
+          <div className="input-container">
             <label htmlFor="number">Numero:</label>
             <input
+              required
               onChange={(e) => setNumber(e.target.value)}
               value={number}
               id="number"

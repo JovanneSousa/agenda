@@ -12,6 +12,14 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   transition: opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 `
 
 export const Add = styled.div`
@@ -19,6 +27,16 @@ export const Add = styled.div`
   width: 400px;
   padding: 16px 24px;
   border-radius: 8px;
+  transform: translate(-50%, -50%) scale(0.95);
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+
+  &.visible {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 
   position: fixed;
   top: 50%;
@@ -45,6 +63,37 @@ export const Add = styled.div`
       justify-content: end;
     }
 
+    .input-container {
+      flex-direction: column;
+
+      label {
+        font-size: 18px;
+        line-height: 32px;
+      }
+
+      input {
+        border: none;
+        border-radius: 4px;
+        padding: 4px;
+        height: 32px;
+        width: 70%;
+        color: ${cores.container};
+        font-size: 16px;
+        width: 100%;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+
+        &:focus,
+        &:hover {
+          outline: none;
+
+          transform: scale(1.03);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+
     button {
       margin-top: 8px;
       width: 32px;
@@ -62,24 +111,6 @@ export const Add = styled.div`
       &:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-    }
-
-    label {
-      line-height: 32px;
-    }
-
-    input {
-      border: none;
-      border-radius: 8px;
-      padding: 4px;
-      height: 32px;
-      width: 70%;
-      color: ${cores.container};
-      font-size: 16px;
-
-      &:focus {
-        border-color: ${cores.container};
       }
     }
   }
