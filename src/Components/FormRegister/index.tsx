@@ -3,6 +3,7 @@ import AddButton from '../addButton'
 import type { AppDispatch, RootReducer } from '../../Store'
 import React, { useState } from 'react'
 import { register } from '../../Store/reducers/auth'
+import { useNotification } from '../Notification/NotificationProvider'
 
 interface FormRegisterProps {
   switchToLogin: () => void
@@ -16,6 +17,7 @@ const FormRegister: React.FC<FormRegisterProps> = ({ switchToLogin }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const { showNotification } = useNotification()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,10 +27,11 @@ const FormRegister: React.FC<FormRegisterProps> = ({ switchToLogin }) => {
     }
     try {
       await dispatch(register({ username, name, email, password })).unwrap()
+      showNotification('Registro Efetuado com sucesso!', 'success')
       clearInput()
       switchToLogin()
     } catch (err) {
-      console.log('erro')
+      showNotification('Erro ao registrar usuário!', 'error')
     }
   }
 
