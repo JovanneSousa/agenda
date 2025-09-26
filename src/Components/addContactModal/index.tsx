@@ -3,34 +3,29 @@ import { Container, Add } from './styles'
 import { cores } from '../../globalStyle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { add } from '../../Store/reducers/contact'
+import { addContact } from '../../Store/reducers/contact'
+import type { AppDispatch } from '../../Store'
 
 interface AddContactProps {
   onClose: () => void
 }
 const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState('')
 
   const limpaFormulario = () => {
     setEmail('')
     setName('')
-    setNumber(0)
+    setNumber('')
     onClose()
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    dispatch(
-      add({
-        fullName: name,
-        email,
-        number,
-      })
-    )
+    dispatch(addContact({ name, email, phone: number }))
 
     limpaFormulario()
   }
@@ -62,7 +57,7 @@ const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
           <div>
             <label htmlFor="number">Numero:</label>
             <input
-              onChange={(e) => setNumber(Number(e.target.value))}
+              onChange={(e) => setNumber(e.target.value)}
               value={number}
               id="number"
               type="text"

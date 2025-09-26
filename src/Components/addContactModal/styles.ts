@@ -15,7 +15,7 @@ export const Container = styled.div`
 `
 
 export const Add = styled.div`
-  background-color: ${cores.buttonColor};
+  background: ${cores.gradient2};
   width: 400px;
   padding: 16px 24px;
   border-radius: 8px;
@@ -50,15 +50,18 @@ export const Add = styled.div`
       width: 32px;
       padding: 8px;
       margin-right: 8px;
-      background-color: ${cores.buttonColor};
-      border: 1px solid ${cores.container};
+      background: ${cores.gradient3};
+      border: none;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
       &:hover {
-        background-color: ${cores.container};
-        transition: background-color 0.3s ease;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
     }
 

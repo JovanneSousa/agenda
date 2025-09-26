@@ -40,9 +40,14 @@ const Contacts = () => {
   const contactFilter = () => {
     let contactFiltred = contacts || []
     if (termo?.trim() !== '') {
-      contactFiltred = contactFiltred.filter((c) =>
-        c.contactName.toLowerCase().includes(termo.toLowerCase())
-      )
+      contactFiltred = contactFiltred.filter((c) => {
+        const searchTerm = termo?.trim() || ''
+        if (searchTerm !== '') {
+          contactFiltred = contactFiltred.filter((c) =>
+            c.contactName.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        }
+      })
     }
     return groupContactsByInitial(contactFiltred)
   }

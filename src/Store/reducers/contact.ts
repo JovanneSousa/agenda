@@ -18,6 +18,26 @@ const initialState: ContactState = {
   error: null,
 }
 
+export const addContact = createAsyncThunk<
+  Contact,
+  { name: string; email: string; phone: string },
+  { rejectValue: string }
+>('/contacts/addContact', async (contactData, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem('token')
+    const response = await api.post<Contact>('/contacts', contactData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (err: any) {
+    return rejectWithValue(
+      err.response?.data.message || 'Não foi possivel adicionar o contato'
+    )
+  }
+})
+
 export const fetchUserContacts = createAsyncThunk<
   Contact[],
   void,
@@ -42,26 +62,6 @@ const contactSlice = createSlice({
   name: 'contact',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<Omit<Contact, 'contactId'>>) => {
-      const contactExists = state.contacts.find(
-        (c) =>
-          c.contactName.toLocaleLowerCase() ===
-          action.payload.contactName.toLocaleLowerCase()
-      )
-
-      if (contactExists) {
-        alert('O contato já existe')
-      } else {
-        const lastContact = state.contacts[state.contacts.length - 1]
-
-        const newContact = {
-          ...action.payload,
-          contactId: lastContact ? lastContact.contactId + 1 : 1,
-        }
-
-        state.contacts.push(newContact)
-      }
-    },
     edit: (
       state,
       action: PayloadAction<{
@@ -101,9 +101,22 @@ const contactSlice = createSlice({
         state.loading = false
         state.error = action.payload || 'Erro desconhecido'
       })
+
+      .addCase(addContact.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.loading = false
+        state.contacts.push(action.payload)
+      })
+      .addCase(addContact.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Erro desconhecido ao adicionar contato'
+      })
   },
 })
 
-export const { add, edit, remove } = contactSlice.actions
+export const { edit, remove } = contactSlice.actions
 
 export default contactSlice.reducer
