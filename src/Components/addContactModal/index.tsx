@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { addContact } from '../../Store/reducers/contact'
 import type { AppDispatch } from '../../Store'
+import { useNotification } from '../Notification/NotificationProvider'
 
 interface AddContactProps {
   onClose: () => void
@@ -15,6 +16,7 @@ const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
+  const { showNotification } = useNotification()
 
   useEffect(() => {
     setIsVisible(true)
@@ -32,7 +34,7 @@ const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
     e.preventDefault()
 
     dispatch(addContact({ name, email, phone: number }))
-
+    showNotification('Contato adicionado com sucesso!', 'success')
     limpaFormulario()
   }
 

@@ -29,6 +29,7 @@ export const NotificationContainer = styled.div<NotificationContainerProps>`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   opacity: 0;
   animation: ${({ visible }) => (visible ? fadeIn : fadeOut)} 0.3s forwards;
+  overflow: hidden; // para a barra não vazar
 
   ${({ type }) =>
     type === 'success' &&
@@ -41,4 +42,18 @@ export const NotificationContainer = styled.div<NotificationContainerProps>`
     css`
       background: ${cores.gradient3};
     `}
+`
+
+interface ProgressBarProps {
+  progress: number
+}
+
+export const ProgressBar = styled.div<ProgressBarProps>`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  width: ${({ progress }) => progress}%;
+  transition: width 0.02s linear;
 `
