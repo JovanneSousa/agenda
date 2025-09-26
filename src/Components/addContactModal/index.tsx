@@ -17,8 +17,8 @@ const AddContact: React.FC<AddContactProps> = ({ onClose }) => {
   const [number, setNumber] = useState('')
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsVisible(!isVisible), 10)
-    return () => clearTimeout(timeout)
+    setIsVisible(true)
+    return () => setIsVisible(false)
   }, [])
 
   const limpaFormulario = () => {
