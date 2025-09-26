@@ -1,14 +1,19 @@
 class Contact {
-  fullName: string
-  email: string
-  number: number
-  id: number
+  contactName: string
+  contactEmail: string
+  contactPhone: string
+  contactId: number
 
-  constructor(fullName: string, email: string, number: number, id: number) {
-    this.email = email
-    this.fullName = fullName
-    this.number = number
-    this.id = id
+  constructor(
+    contactName: string,
+    contactEmail: string,
+    contactPhone: string,
+    contactId: number
+  ) {
+    this.contactEmail = contactEmail
+    this.contactName = contactName
+    this.contactPhone = contactPhone
+    this.contactId = contactId
   }
 }
 

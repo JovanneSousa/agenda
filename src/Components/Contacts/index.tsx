@@ -12,7 +12,7 @@ const Contacts = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState('')
 
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { contacts } = useSelector((state: RootReducer) => state.contact)
@@ -30,10 +30,8 @@ const Contacts = () => {
     contacts: Contact[] = []
   ): GroupedContacts => {
     return contacts.reduce((acc, contact) => {
-      const initial = contact.fullName?.[0]?.toUpperCase() || '#'
-      if (!acc[initial]) {
-        acc[initial] = []
-      }
+      const initial = contact.contactName?.[0]?.toUpperCase() || '#'
+      if (!acc[initial]) acc[initial] = []
       acc[initial].push(contact)
       return acc
     }, {} as GroupedContacts)
@@ -41,9 +39,9 @@ const Contacts = () => {
 
   const contactFilter = () => {
     let contactFiltred = contacts || []
-    if (termo !== undefined && termo.trim() !== '') {
+    if (termo?.trim() !== '') {
       contactFiltred = contactFiltred.filter((c) =>
-        c.fullName.toLowerCase().includes(termo.toLowerCase())
+        c.contactName.toLowerCase().includes(termo.toLowerCase())
       )
     }
     return groupContactsByInitial(contactFiltred)
@@ -52,7 +50,7 @@ const Contacts = () => {
   const grouped = contactFilter()
 
   return Object.keys(grouped).length === 0 ? (
-    <NoContactFound>Nenhum contato encotrado</NoContactFound>
+    <NoContactFound>Nenhum contato encontrado</NoContactFound>
   ) : (
     <div>
       {Object.keys(grouped)
@@ -62,37 +60,54 @@ const Contacts = () => {
             <h3>{initial}</h3>
             <ul>
               {grouped[initial].map((contact) => (
-                <li key={contact.id}>
+                <li key={contact.contactId}>
                   <input
-                    className={isEditing === contact.id ? 'is-editing' : ''}
+                    className={
+                      isEditing === contact.contactId ? 'is-editing' : ''
+                    }
                     onChange={(e) => setName(e.target.value)}
                     type="text"
-                    disabled={isEditing !== contact.id}
-                    value={isEditing === contact.id ? name : contact.fullName}
+                    disabled={isEditing !== contact.contactId}
+                    value={
+                      isEditing === contact.contactId
+                        ? name
+                        : contact.contactName
+                    }
                   />
                   <input
-                    className={isEditing === contact.id ? 'is-editing' : ''}
+                    className={
+                      isEditing === contact.contactId ? 'is-editing' : ''
+                    }
                     onChange={(e) => setEmail(e.target.value)}
                     type="text"
-                    disabled={isEditing !== contact.id}
-                    value={isEditing === contact.id ? email : contact.email}
+                    disabled={isEditing !== contact.contactId}
+                    value={
+                      isEditing === contact.contactId
+                        ? email
+                        : contact.contactEmail
+                    }
                   />
-
                   <input
-                    className={isEditing === contact.id ? 'is-editing' : ''}
-                    onChange={(e) => setNumber(Number(e.target.value))}
-                    type="number"
-                    disabled={isEditing !== contact.id}
-                    value={isEditing === contact.id ? number : contact.number}
+                    className={
+                      isEditing === contact.contactId ? 'is-editing' : ''
+                    }
+                    onChange={(e) => setNumber(e.target.value)}
+                    type="text"
+                    disabled={isEditing !== contact.contactId}
+                    value={
+                      isEditing === contact.contactId
+                        ? number
+                        : contact.contactPhone
+                    }
                   />
                   <ButtonDiv>
-                    {isEditing !== contact.id ? (
+                    {isEditing !== contact.contactId ? (
                       <button
                         onClick={() => {
-                          setIsEditing(contact.id)
-                          setName(contact.fullName)
-                          setEmail(contact.email)
-                          setNumber(contact.number)
+                          setIsEditing(contact.contactId)
+                          setName(contact.contactName)
+                          setEmail(contact.contactEmail)
+                          setNumber(contact.contactPhone)
                         }}
                       >
                         <MdOutlineEdit />
@@ -103,10 +118,10 @@ const Contacts = () => {
                         onClick={() => {
                           dispatch(
                             edit({
-                              email,
-                              number,
-                              fullName: name,
-                              id: contact.id,
+                              contactId: contact.contactId,
+                              contactName: name,
+                              contactEmail: email,
+                              contactPhone: number,
                             })
                           )
                           setIsEditing(null)
@@ -117,7 +132,7 @@ const Contacts = () => {
                     )}
                     <button
                       onClick={() => {
-                        dispatch(remove(contact.id))
+                        dispatch(remove(contact.contactId))
                       }}
                     >
                       <FaTrashAlt color={cores.buttonColor} />

@@ -22,17 +22,14 @@ export const fetchUserContacts = createAsyncThunk<
   Contact[],
   void,
   { rejectValue: string }
->('contacts/fetchUserContacs', async (_, { rejectWithValue }) => {
+>('contacts/fetchUserContacts', async (_, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await api.get<Contact[]>(
-      '/contacts',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    const response = await api.get<Contact[]>('/contacts', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (err: any) {
     return rejectWithValue(
@@ -45,36 +42,49 @@ const contactSlice = createSlice({
   name: 'contact',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<Omit<Contact, 'id'>>) => {
+    add: (state, action: PayloadAction<Omit<Contact, 'contactId'>>) => {
       const contactExists = state.contacts.find(
         (c) =>
-          c.fullName.toLocaleLowerCase() ==
-          action.payload.fullName.toLocaleLowerCase()
+          c.contactName.toLocaleLowerCase() ===
+          action.payload.contactName.toLocaleLowerCase()
       )
 
       if (contactExists) {
-        alert('O contato ja existe')
+        alert('O contato já existe')
       } else {
         const lastContact = state.contacts[state.contacts.length - 1]
 
         const newContact = {
           ...action.payload,
-          id: lastContact ? lastContact.id + 1 : 1,
+          contactId: lastContact ? lastContact.contactId + 1 : 1,
         }
 
         state.contacts.push(newContact)
       }
     },
-    edit: (state, action: PayloadAction<Contact>) => {
+    edit: (
+      state,
+      action: PayloadAction<{
+        contactId: number
+        contactName: string
+        contactEmail: string
+        contactPhone: string
+      }>
+    ) => {
       const contactIndex = state.contacts.findIndex(
-        (t) => t.id === action.payload.id
+        (c) => c.contactId === action.payload.contactId
       )
       if (contactIndex >= 0) {
-        state.contacts[contactIndex] = action.payload
+        state.contacts[contactIndex] = {
+          ...state.contacts[contactIndex],
+          ...action.payload,
+        }
       }
     },
     remove: (state, action: PayloadAction<number>) => {
-      state.contacts = state.contacts.filter((c) => c.id !== action.payload)
+      state.contacts = state.contacts.filter(
+        (c) => c.contactId !== action.payload
+      )
     },
   },
   extraReducers: (builder) => {
