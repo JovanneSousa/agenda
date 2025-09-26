@@ -4,7 +4,11 @@ import type { AppDispatch, RootReducer } from '../../Store'
 import React, { useState } from 'react'
 import { register } from '../../Store/reducers/auth'
 
-const FormRegister = () => {
+interface FormRegisterProps {
+  switchToLogin: () => void
+}
+
+const FormRegister: React.FC<FormRegisterProps> = ({ switchToLogin }) => {
   const dispatch = useDispatch<AppDispatch>()
   const { error } = useSelector((state: RootReducer) => state.auth)
   const [name, setName] = useState('')
@@ -13,14 +17,19 @@ const FormRegister = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       alert('As senhas não conferem!')
       return
     }
-    dispatch(register({ username, name, email, password }))
-    clearInput()
+    try {
+      await dispatch(register({ username, name, email, password })).unwrap()
+      clearInput()
+      switchToLogin()
+    } catch (err) {
+      console.log('erro')
+    }
   }
 
   const clearInput = () => {

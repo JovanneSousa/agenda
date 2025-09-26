@@ -23,7 +23,11 @@ const Login = () => {
             Registrar
           </span>
         </div>
-        {isLoginPageActive ? <FormLogin /> : <FormRegister />}
+        {isLoginPageActive ? (
+          <FormLogin />
+        ) : (
+          <FormRegister switchToLogin={() => setIsLoginPageActive(true)} />
+        )}
       </div>
     </LoginSection>
   )
